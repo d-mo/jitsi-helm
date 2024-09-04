@@ -338,6 +338,7 @@ jigasi:
   tolerations: []
   affinity: {}
   extraEnvs: {}
+  sipExtraProperties: {}
 
 
 jibri:

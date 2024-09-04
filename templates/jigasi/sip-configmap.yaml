@@ -1,0 +1,17 @@
+{{- if .Values.jigasi.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "jitsi-meet.jigasi.fullname" . }}-sip
+  labels:
+    {{- include "jitsi-meet.jigasi.labels" . | nindent 4 }}
+data:
+  sip-communicator.properties: |
+    {{- range $key, $value := .Values.jigasi.sipExtraProperties }}
+    {{- if kindIs "string" $value }}
+    {{ $key }}={{ tpl $value $ }}
+    {{- else if kindIs "bool" $value }}
+    {{ $key }}={{ $value }}
+    {{- end }}
+    {{- end }}
+{{- end }}
